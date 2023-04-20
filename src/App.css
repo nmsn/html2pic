@@ -7,6 +7,8 @@
 
 .container {
   display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .content {
@@ -18,6 +20,21 @@
   width: 100%;
 }
 
+.result {
+  width: 400px;
+}
+
 .text {
   line-height: 40px;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
 }
