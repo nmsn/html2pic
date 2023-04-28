@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import publicPng from "/logo-white.png";
 import html2canvas from "html2canvas";
@@ -11,28 +11,36 @@ const Pic1 = () => {
   const [imgUrl, setImgUrl] = useState("");
 
   const getImg = () => {
+    const start = new Date().getTime();
     ref?.current &&
-      html2canvas(ref?.current, { useCORS: true }).then((canvas) => {
-        const image = canvas.toDataURL("image/png", 1);
-        setImgUrl(image);
-        console.log(image);
-      });
+      html2canvas(ref?.current, { useCORS: true, backgroundColor: null }).then(
+        (canvas) => {
+          const image = canvas.toDataURL("image/png", 1);
+          setImgUrl(image);
+          const end = new Date().getTime();
+          console.log("cost is", `${end - start}ms`);
+        }
+      );
   };
   return (
     <div style={{ background: "grey" }}>
       <div
         className="content"
         ref={ref}
-        style={{
-          background: "black",
-        }}
+        style={
+          {
+            // background: "black",
+          }
+        }
       >
         {/* <img src={publicPng} className="pic" /> */}
         <img
           src="https://s2.loli.net/2023/04/20/4t8NgpMxkdVCJcs.png"
           className="pic"
         />
-        <div className="text">测试文本内容1</div>
+        <div className="text" style={{ color: "red" }}>
+          测试文本内容1
+        </div>
       </div>
       <div className="btnContainer">
         <button onClick={getImg} className="btn">
@@ -53,11 +61,17 @@ const Pic2 = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [imgUrl, setImgUrl] = useState("");
 
+  useEffect(() => {
+    console.log(window.getComputedStyle(ref.current));
+  }, []);
+
   const getImg = () => {
+    const start = new Date().getTime();
     ref?.current &&
       htmlToImage.toPng(ref?.current).then((dataUrl) => {
         setImgUrl(dataUrl);
-        console.log(dataUrl);
+        const end = new Date().getTime();
+        console.log("cost is", `${end - start}ms`);
       });
   };
   return (
@@ -65,16 +79,20 @@ const Pic2 = () => {
       <div
         className="content"
         ref={ref}
-        style={{
-          background: "black",
-        }}
+        style={
+          {
+            // background: "black",
+          }
+        }
       >
         {/* <img src={publicPng} className="pic" /> */}
         <img
           src="https://s2.loli.net/2023/04/20/4t8NgpMxkdVCJcs.png"
           className="pic"
         />
-        <div className="text">测试文本内容2</div>
+        <div className="text" style={{ color: "red" }}>
+          测试文本内容2
+        </div>
       </div>
       <div className="btnContainer">
         <button onClick={getImg} className="btn">
